@@ -1,7 +1,5 @@
 'use client'
 
-// import { MobileNav } from '@/components/MobileNav'
-
 const Header: React.FC = () => {
   return (
     <header className='bg-white pb-6 pt-8'>

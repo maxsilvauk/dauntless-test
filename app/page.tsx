@@ -4,9 +4,9 @@ import { useEffect, useState, Fragment } from 'react'
 import coinService from '@/services/CoinService'
 import { CoinCard } from '@/components/CoinCard'
 import { Loader } from '@/components/Loader'
-import { ICoinData, ICoins } from './types'
+import { IHome, ICoinData, ICoins } from './types'
 
-const Home: React.FC = () => {
+const Home: React.FC<IHome> = () => {
   const [coins, setCoins] = useState<ICoins>({ loading: false, data: null })
 
   // Get the coin market data on page load.

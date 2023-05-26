@@ -10,8 +10,8 @@ export async function GET(
   { params: { symbol } }: IParams
 ) {
   // Fetch data
-  const res = await fetch(`${BASE_COINGECKO_API_PATH}${symbol}`)
-  const data: Object = await res.json()
+  const res = (await fetch(`${BASE_COINGECKO_API_PATH}${symbol}`)) as Response
+  const data: Object = (await res.json()) as Object
 
   // Return NextResponse
   return NextResponse.json({

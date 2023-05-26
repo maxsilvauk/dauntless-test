@@ -1,10 +1,10 @@
 export interface ICurrency {
   params: {
-    symbol: string;
-  };
+    symbol: string
+  }
 }
 
 export interface ICoinData {
-  loading: boolean;
-  data: Array<[]> | null;
+  loading: boolean
+  data: Array<[]> | null
 }

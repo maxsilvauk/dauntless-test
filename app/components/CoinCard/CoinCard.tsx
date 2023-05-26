@@ -15,7 +15,9 @@ const CoinCard: React.FC<ICoinCard> = ({
         className='object-cover object-center'
       />
       <div className='flex-1 p-4'>
-        <h2 className='mb-2 text-xl font-semibold'>{localization.en}</h2>
+        <h2 className='mb-2 text-xl font-semibold'>
+          {localization.en as string}
+        </h2>
         <ul className='list-disc pl-5'>
           <li>
             Current Price: &#x24;

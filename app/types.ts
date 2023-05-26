@@ -1,26 +1,29 @@
+export interface IHome {
+  coins: ICoins
+}
 export interface ICoinData {
-  id: string;
+  id: string
   image: {
-    large: string;
-  };
-  symbol: string;
+    large: string
+  }
+  symbol: string
   market_data: {
     current_price: {
-      usd: number;
-    };
+      usd: number
+    }
     high_24h: {
-      usd: number;
-    };
+      usd: number
+    }
     low_24h: {
-      usd: number;
-    };
-  };
+      usd: number
+    }
+  }
   localization: {
-    en: string;
-  };
+    en: string
+  }
 }
 
 export interface ICoins {
-  loading: boolean;
-  data: Array<ICoinData> | null;
+  loading: boolean
+  data: Array<ICoinData> | null
 }

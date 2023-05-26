@@ -7,14 +7,14 @@ import { IRequest, ICoinGeckoGetCoinMarketsResponse } from './types'
 export async function GET(req: IRequest) {
   const { searchParams: searchParams } = new URL(req.nextUrl)
 
-  const vs_currency: string | null = searchParams.get('vs_currency')
-  const per_page: string | null = searchParams.get('per_page')
+  const vs_currency = searchParams.get('vs_currency') as string | null
+  const per_page = searchParams.get('per_page') as string | null
 
   // Fetch data
   const res = await fetch(
     `${BASE_COINGECKO_API_PATH}?vs_currency=${vs_currency}&order=market_cap_desc&per_page=${per_page}&locale=${LOCALIZATION}}`
   )
-  const data = await res.json()
+  const data = (await res.json()) as Object[]
 
   // Return NextResponse
   return NextResponse.json({
