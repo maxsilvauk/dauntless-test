@@ -6,17 +6,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --ext .js, .jsx, .ts, .tsx",
+    "lint": "yarn eslint",
+    "eslint": "next lint --fix --dir .",
+    "prettier": "prettier -l \"./app/**/**/*.{ts, tsx, md}\"",
+    "clean": "rm -rf .next out && rm -rf node_modules",
     "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.17",
     "@types/node": "18.16.0",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.0",
     "autoprefixer": "10.4.14",
-    "eslint": "8.39.0",
-    "eslint-config-next": "13.3.1",
+    "axios": "^1.4.0",
     "next": "13.4.3",
     "postcss": "8.4.23",
     "react": "18.2.0",
@@ -25,6 +28,12 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "clsx": "^1.2.1"
+    "clsx": "^1.2.1",
+    "eslint": "8.39.0",
+    "eslint-config-next": "13.3.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-tailwindcss": "^3.6.2",
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.13"
   }
 }

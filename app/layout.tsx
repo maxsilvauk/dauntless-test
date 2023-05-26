@@ -1,7 +1,9 @@
+'use client';
+
 import '#/styles/globals.css';
 import { Header } from '@/components/Header';
-// import { Footer } from '@/components/Footer';
 
+// The root layout for all pages
 export default function RootLayout({
   children,
 }: {
@@ -14,7 +16,6 @@ export default function RootLayout({
       <meta name="language" content="english" />
       <meta httpEquiv="content-type" content="text/html" />
       <meta name="author" content="Max Silva" />
-
       <meta
         name="description"
         content="A test for daunted to showcase modern Next.js and Typescript code."

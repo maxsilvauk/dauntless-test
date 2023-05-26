@@ -1,43 +1,48 @@
-'use client';
+'use client'
 
-import Image from 'next/image';
-//import { Container } from '@/components/Container';
+import { useEffect, useState, Fragment } from 'react'
+import coinService from '@/services/CoinService'
+import { CoinCard } from '@/components/CoinCard'
+import { Loader } from '@/components/Loader'
+import { ICoinData, ICoins } from './types'
 
 const Home: React.FC = () => {
-  const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // Replace this with your actual data
+  const [coins, setCoins] = useState<ICoins>({ loading: false, data: null })
+
+  // Get the coin market data on page load.
+  useEffect(() => {
+    const getCoins = async () => {
+      // Set the loading state to true.
+      setCoins({ loading: true, data: null })
+      let res = await coinService.getCoinMarkets()
+
+      // If the response was successful, set the coin data.
+      if (res.status === 200) {
+        setCoins({ loading: false, data: res.data.results })
+      } else {
+        // If the response was not successful, set the error message.
+        setCoins({ loading: false, data: null })
+      }
+    }
+
+    getCoins()
+  }, [])
+
   return (
     <>
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* End hero unit */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {cards.map((card) => (
-              <div key={card} className="flex flex-col">
-                <Image
-                  src={`https://picsum.photos/200/200`}
-                  alt="placeholder"
-                  width={200}
-                  height={200}
-                  className="object-cover object-center"
-                />
-                <div className="flex-1 p-4">
-                  <h2 className="text-xl font-semibold mb-2">Currency Name</h2>
-                  <ul className="list-disc pl-5">
-                    <li>Current Price: xxx</li>
-                    <li>24h High: xxx</li>
-                    <li>24h Low: xxx</li>
-                  </ul>
-                </div>
-                <div className="p-4">
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    More
-                  </button>
-                </div>
-              </div>
+      <section className='container mx-auto px-4 py-8 sm:px-6 lg:px-8'>
+        <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3'>
+          {coins.loading && <Loader />}
+          {coins.data &&
+            coins.data.map((coin: ICoinData) => (
+              <Fragment key={coin.id}>
+                <CoinCard data={coin} />
+              </Fragment>
             ))}
-          </div>
+        </div>
       </section>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

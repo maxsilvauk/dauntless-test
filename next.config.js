@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['picsum.photos'],
+    domains: ['assets.coingecko.com'],
   },
   reactStrictMode: true,
   experimental: { appDir: true },
