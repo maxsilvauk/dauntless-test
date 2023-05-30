@@ -1,45 +1,42 @@
 'use client'
 
-import { useEffect, useState, Fragment } from 'react'
+import { useState } from 'react'
+import { useQuery } from 'react-query'
+import { AxiosResponse } from 'axios'
 import coinService from '@/services/CoinService'
-import { CoinCard } from '@/components/CoinCard'
+import { useAppContext } from '@/context/AppContext'
 import { Loader } from '@/components/Loader'
-import { IHome, ICoinData, ICoins } from './types'
+import { Alert } from '@/components/Alert'
+import { CoinCard } from '@/components/CoinCard'
+import { IHome, TRateLimitExceeded, ICoin } from './types'
 
 const Home: React.FC<IHome> = () => {
-  const [coins, setCoins] = useState<ICoins>({ loading: false, data: null })
+  const { coins, addCoins } = useAppContext()
+  const getCoins = coinService.getCoinMarkets() as Promise<AxiosResponse>
+  const [rateLimitExceeded, setRateLimitExceeded] = useState<TRateLimitExceeded>(false)
 
-  // Get the coin market data on page load.
-  useEffect(() => {
-    const getCoins = async () => {
-      // Set the loading state to true.
-      setCoins({ loading: true, data: null })
-      let res = await coinService.getCoinMarkets()
+  // Fetch the coins using useQuery from Axios.
+  const { isLoading, data } = useQuery<AxiosResponse>('getCoins', () => getCoins, {
+    refetchOnWindowFocus: false,
+    // If the request is successful, add the coins to the AppContext or
+    // set the rate limit exceeded state to true.
+    onSuccess: (data) => {
+      !data.data.status ? addCoins(data.data) : setRateLimitExceeded(true)
+    },
+  })
 
-      // If the response was successful, set the coin data.
-      if (res.status === 200) {
-        setCoins({ loading: false, data: res.data.results })
-      } else {
-        // If the response was not successful, set the error message.
-        setCoins({ loading: false, data: null })
-      }
+  // Display list of coins or show exceeded rate limit error message.
+  const display = () => {
+    if (data && !rateLimitExceeded) {
+      return data.data.map((coin: ICoin) => <CoinCard key={coin.id} data={coin} />)
     }
-
-    getCoins()
-  }, [])
+  }
 
   return (
     <>
-      <section className='container mx-auto px-4 py-8 sm:px-6 lg:px-8'>
-        <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3'>
-          {coins.loading && <Loader />}
-          {coins.data &&
-            coins.data.map((coin: ICoinData) => (
-              <Fragment key={coin.id}>
-                <CoinCard data={coin} />
-              </Fragment>
-            ))}
-        </div>
+      <section className='container mx-auto items-center justify-center px-6 py-10'>
+        {rateLimitExceeded && <Alert type='error' body={`${data.data.status.error_message} - Retry in 2 minutes, Thanks!`} open={rateLimitExceeded} />}
+        <div className='grid grid-cols-1 gap-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>{isLoading ? <Loader /> : display()}</div>
       </section>
     </>
   )

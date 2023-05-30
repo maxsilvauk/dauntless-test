@@ -1,41 +1,43 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ICoinCard } from './types'
+import { ArrowRightIcon, ArrowTrendingUpIcon, ArrowTrendingDownIcon } from '@heroicons/react/20/solid'
 
-const CoinCard: React.FC<ICoinCard> = ({
-  data: { id, image, market_data, localization },
-}) => {
+const CoinCard: React.FC<ICoinCard> = ({ data: { id, image, market_data } }) => {
   return (
-    <div className='flex flex-col'>
-      <Image
-        src={image.large}
-        alt='placeholder'
-        width={200}
-        height={200}
-        className='object-cover object-center'
-      />
-      <div className='flex-1 p-4'>
-        <h2 className='mb-2 text-xl font-semibold'>
-          {localization.en as string}
-        </h2>
+    <div className='mb-0.5 cursor-pointer rounded-md border-2 border-gray-900 bg-gray-800 p-6 px-10 hover:border-2 hover:border-gray-700 hover:bg-gray-900 lg:flex'>
+      <div className='flex items-center justify-center text-xs lg:mx-6 lg:text-sm'>
+        <Image src={image.large} alt='placeholder' width={100} height={100} className='object-center' />
         <ul className='list-disc pl-5'>
-          <li>
-            Current Price: &#x24;
+          <li className='list-none'>
+            <ArrowRightIcon className='mb-0.5 ml-0.5 mr-2 inline-block h-3 w-3 text-amber-500' />
+            <span className='font-semibold'>Current Price:</span> &#x24;
             {market_data.current_price.usd}
           </li>
-          <li>24h High: &#x24;{market_data.high_24h.usd}</li>
-          <li>24h Low: &#x24;{market_data.low_24h.usd}</li>
+          <li className='list-none'>
+            <span className='font-semibold'>
+              <ArrowTrendingUpIcon className='mb-0.5 ml-0.5 mr-2 inline-block h-3 w-3 text-green-500' />
+              24h High:
+            </span>
+            &#x24;
+            {market_data.high_24h.usd}
+          </li>
+          <li className='list-none'>
+            <ArrowTrendingDownIcon className='mb-0.5 ml-0.5 mr-2 inline-block h-3 w-3 text-red-500' />
+            <span className='font-semibold'>24h Low:</span> &#x24;{market_data.low_24h.usd}
+          </li>
+          <li className='mt-4 list-none'>
+            <Link
+              className='rounded border-2 border-gray-900 bg-gray-800 p-1 px-2 font-semibold text-white hover:bg-gray-700 group-hover:text-white'
+              href={{
+                pathname: `/currency/${id}`,
+              }}
+            >
+              More
+              <ArrowRightIcon className='mb-0.5 ml-0.5 inline-block h-3 w-3 text-white' />
+            </Link>
+          </li>
         </ul>
-      </div>
-      <div className='p-4'>
-        <Link
-          className='rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700'
-          href={{
-            pathname: `/currency/${id}`,
-          }}
-        >
-          More
-        </Link>
       </div>
     </div>
   )

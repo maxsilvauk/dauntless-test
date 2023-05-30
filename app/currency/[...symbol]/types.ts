@@ -5,6 +5,5 @@ export interface ICurrency {
 }
 
 export interface ICoinData {
-  loading: boolean
   data: Array<[]> | null
 }

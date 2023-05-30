@@ -11,9 +11,7 @@ class CoinService {
 
   // Get coin markets data
   async getCoinMarkets(vs_currency = 'usd', per_page = 45) {
-    return await this.axios.get(
-      `${BASE_API_PATH}coin-markets?vs_currency=${vs_currency}&order=market_cap_desc&per_page=${per_page}`
-    )
+    return await this.axios.get(`${BASE_API_PATH}coin-markets?vs_currency=${vs_currency}&order=market_cap_desc&per_page=${per_page}`)
   }
 
   // Get individual coin data

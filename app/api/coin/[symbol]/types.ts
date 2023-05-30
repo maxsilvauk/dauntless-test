@@ -5,7 +5,6 @@ export interface IParams {
 }
 
 export interface ICoinGeckoGetCoinResponse {
-  status: number
   result: {
     name: string
     market_data: any

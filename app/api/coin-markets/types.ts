@@ -1,10 +1,7 @@
+import { ICoin } from 'app/types'
 export interface IRequest {
   nextUrl: URL
   searchParams: URLSearchParams
 }
 
-export interface ICoinGeckoGetCoinMarketsResponse {
-  status: number
-  results: any[]
-  count: number
-}
+export type TCoinGeckoGetCoinMarketsResponse = Array<ICoin>

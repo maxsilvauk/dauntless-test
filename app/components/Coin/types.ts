@@ -1,6 +1,10 @@
 export interface ICoin {
   data: {
-    name: string;
+    image: {
+      small: string
+      large: string
+    }
+    name: string
     market_data: any
-  }
+  } | null
 }

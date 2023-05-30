@@ -1,12 +1,8 @@
-import clsx from 'clsx'
+import Image from 'next/image'
 import { Transition } from '@headlessui/react'
-import { CloudArrowDownIcon } from '@heroicons/react/20/solid'
+import { ArrowDownTrayIcon, CloudArrowDownIcon } from '@heroicons/react/20/solid'
 
-interface ILoader {
-  className?: string
-}
-
-const Loader: React.FC<ILoader> = ({ className }) => {
+const Loader: React.FC = () => {
   return (
     <Transition
       show={true}
@@ -19,12 +15,14 @@ const Loader: React.FC<ILoader> = ({ className }) => {
       as='div'
     >
       <>
-        <div
-          className={clsx('fixed inset-0 z-30 bg-black/95', className)}
-          aria-hidden='true'
-        />
-        <div className='fixed inset-0 z-40 flex items-center justify-center p-4 text-center text-white'>
-          <CloudArrowDownIcon className='block h-32 w-32 animate-pulse' />
+        <div className='fixed inset-0 bg-black/95' aria-hidden='true' />
+        <div className='fixed inset-0 z-10 flex items-center justify-center'>
+          <div className='justify-center p-4 text-center'>
+            <ArrowDownTrayIcon className='mx-auto mb-4 block h-32 w-32 animate-pulse text-emerald-500' />
+            <p className='text-lg'>
+              Retrieving data from <span className='text-emerald-500'>coingecko...</span>
+            </p>
+          </div>
         </div>
       </>
     </Transition>
