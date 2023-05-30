@@ -18,11 +18,7 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 ## Notes
 
 - Used the latest app directory now its stable in the latest version of Next 13.
-- Used axios instead of react-query. 
-- If I had more time would of tightened up the styling created a theme in tailwind, used react-query it looks pretty good not used it before. Instead of loading the results on each slug currency load when navigating from the list show and hide a component and only load the individual data when the http request for that particular symbol slug was made saving fetch calls. In a perfect world would of used maybe GraphQL to be extra cool if the application was more complex.
-- Not used headlessUI for the transition in the loader and used vanilla was saving time.
-- Solved the prettier issue.
-- Potentially used useContext to pass the data between the page and removed on the back button if it existed in the context etc..
+- Now Implemented react-query which consumes Axios
+- Had an issue with the /coins/markets endpoint so used /coins but explain within app/currency/[...symbol]/page.tsx why :)
 
 ## Thanks for letting be involved in the test for the role!
-
